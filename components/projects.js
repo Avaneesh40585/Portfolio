@@ -1,5 +1,6 @@
-function renderProjects() {
-    const projectsData = [
+const projectsData = {
+    title: 'Featured Repositories',
+    projects: [
         {
             icon: 'fas fa-brain',
             title: 'AI/ML Projects',
@@ -21,27 +22,33 @@ function renderProjects() {
             tech: ['React', 'Node.js', 'Tailwind CSS'],
             link: 'https://github.com/Avaneesh40585/WebDev-Projects'
         }
-    ];
-    
+    ]
+};
+
+function renderProjectCard(project) {
+    return `
+        <div class="project-card">
+            <div class="project-icon">
+                <i class="${project.icon}"></i>
+            </div>
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            <div class="project-tech">
+                ${project.tech.map(t => `<span>${t}</span>`).join('')}
+            </div>
+            <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="project-link">
+                View Projects <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    `;
+}
+
+function renderProjects() {
     const projectsHTML = `
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
+            <h2 class="section-title">${projectsData.title}</h2>
             <div class="projects-grid">
-                ${projectsData.map(project => `
-                    <div class="project-card">
-                        <div class="project-icon">
-                            <i class="${project.icon}"></i>
-                        </div>
-                        <h3>${project.title}</h3>
-                        <p>${project.description}</p>
-                        <div class="project-tech">
-                            ${project.tech.map(t => `<span>${t}</span>`).join('')}
-                        </div>
-                        <a href="${project.link}" target="_blank" class="project-link">
-                            View Project <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                `).join('')}
+                ${projectsData.projects.map(project => renderProjectCard(project)).join('')}
             </div>
         </div>
     `;
@@ -51,3 +58,4 @@ function renderProjects() {
 }
 
 renderProjects();
+

@@ -1,14 +1,27 @@
+const navbarData = {
+    logo: 'Avaneesh',
+    links: [
+        { text: 'Home', href: '#hero' },
+        { text: 'About', href: '#about' },
+        { text: 'Skills', href: '#skills' },
+        { text: 'Projects', href: '#projects' },
+        { text: 'Contact', href: '#contact' }
+    ]
+};
+
+function renderNavLinks() {
+    return navbarData.links.map(link => `
+        <li><a href="${link.href}">${link.text}</a></li>
+    `).join('');
+}
+
 function renderNavbar() {
     const navbarHTML = `
         <div class="container">
             <div class="nav-wrapper">
-                <div class="logo">Avaneesh</div>
+                <div class="logo">${navbarData.logo}</div>
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    ${renderNavLinks()}
                 </ul>
                 <div class="hamburger" id="hamburger">
                     <span></span>

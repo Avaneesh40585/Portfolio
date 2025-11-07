@@ -1,5 +1,7 @@
-function renderContact() {
-    const contactData = [
+const contactData = {
+    title: 'Get In Touch',
+    subtitle: 'Feel free to reach out for collaborations or just a friendly hello!',
+    methods: [
         {
             icon: 'fas fa-envelope',
             title: 'Email',
@@ -24,21 +26,27 @@ function renderContact() {
             text: 'View my work',
             link: 'https://github.com/Avaneesh40585'
         }
-    ];
-    
+    ]
+};
+
+function renderContactMethods() {
+    return contactData.methods.map(contact => `
+        <a href="${contact.link}" target="_blank" rel="noopener noreferrer" class="contact-card">
+            <i class="${contact.icon}"></i>
+            <h3>${contact.title}</h3>
+            <p>${contact.text}</p>
+        </a>
+    `).join('');
+}
+
+function renderContact() {
     const contactHTML = `
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
+            <h2 class="section-title">${contactData.title}</h2>
             <div class="contact-content">
-                <p class="contact-subtitle">Feel free to reach out for collaborations or just a friendly hello!</p>
+                <p class="contact-subtitle">${contactData.subtitle}</p>
                 <div class="contact-methods">
-                    ${contactData.map(contact => `
-                        <a href="${contact.link}" target="_blank" class="contact-card">
-                            <i class="${contact.icon}"></i>
-                            <h3>${contact.title}</h3>
-                            <p>${contact.text}</p>
-                        </a>
-                    `).join('')}
+                    ${renderContactMethods()}
                 </div>
             </div>
         </div>
@@ -49,3 +57,4 @@ function renderContact() {
 }
 
 renderContact();
+

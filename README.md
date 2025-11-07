@@ -1,4 +1,4 @@
-# Avaneesh's Portfolio
+# My Portfolio
 
 A modern, responsive personal portfolio website showcasing projects, skills, and experience. Built with vanilla JavaScript using a component-based architecture.
 
@@ -30,16 +30,14 @@ Uses a gradient color scheme with indigo and pink accents. Features smooth anima
 
 ## Key Features
 
-- Fully responsive across all devices
-- Smooth scroll navigation
-- Intersection Observer animations
-- Mobile hamburger menu
-- CSS custom properties for easy theming
-- No dependencies or build process
-
-## Browser Support
-
-Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- **Fully responsive** - Optimized for mobile, tablet, and desktop
+- **Smooth scrolling** - Navigation links scroll smoothly to sections
+- **Lazy animations** - Elements fade in and animate as they enter the viewport
+- **Mobile menu** - Hamburger menu with smooth toggle and auto-close
+- **CSS variables** - Easy color and theme customization from one place
+- **Dynamic year** - Footer copyright updates automatically
+- **No dependencies** - Pure vanilla JavaScript, instant loading
+- **Data-driven components** - Easy content updates without code changes
 
 ---
 

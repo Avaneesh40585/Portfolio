@@ -1,23 +1,42 @@
+const skillsData = {
+    title: 'Technical Skills',
+    categories: [
+        {
+            name: 'Programming Languages',
+            skills: ['Python', 'JavaScript', 'C', 'C++', 'SQL', 'HTML/CSS']
+        },
+        {
+            name: 'Web Development',
+            skills: ['React.js', 'Node.js', 'Express.js', 'Tailwind CSS', 'Bootstrap', 'PostgreSQL', 'MySQL']
+        },
+        {
+            name: 'Machine Learning',
+            skills: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas', 'NumPy', 'Keras']
+        },
+        {
+            name: 'Tools & Utilities',
+            skills: ['Git', 'GitHub', 'Postman', 'VS Code', 'EJS']
+        }
+    ]
+};
+
+function renderSkillCategory(category) {
+    return `
+        <div class="skill-category">
+            <h3>${category.name}</h3>
+            <div class="skill-tags">
+                ${category.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+            </div>
+        </div>
+    `;
+}
+
 function renderSkills() {
-    const skillsData = {
-        'Programming Languages': ['Python', 'JavaScript', 'C', 'C++', 'SQL', 'HTML/CSS'],
-        'Web Development': ['React.js', 'Node.js', 'Express.js', 'Tailwind CSS', 'Bootstrap', 'PostgreSQL', 'MySQL'],
-        'Machine Learning & Data': ['TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas', 'NumPy', 'Keras'],
-        'Tools & Utilities': ['Git', 'GitHub', 'Postman', 'VS Code', 'EJS']
-    };
-    
     const skillsHTML = `
         <div class="container">
-            <h2 class="section-title">Technical Skills</h2>
+            <h2 class="section-title">${skillsData.title}</h2>
             <div class="skills-grid">
-                ${Object.entries(skillsData).map(([category, skills]) => `
-                    <div class="skill-category">
-                        <h3>${category}</h3>
-                        <div class="skill-tags">
-                            ${skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
-                        </div>
-                    </div>
-                `).join('')}
+                ${skillsData.categories.map(category => renderSkillCategory(category)).join('')}
             </div>
         </div>
     `;

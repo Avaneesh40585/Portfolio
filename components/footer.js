@@ -3,8 +3,8 @@ function renderFooter() {
     
     const footerHTML = `
         <div class="container">
-            <p>&copy; ${currentYear} Avaneesh. All rights reserved.</p>
-            <p>Built with <span class="heart">❤</span> using HTML, CSS & JavaScript</p>
+            <p>&copy; ${currentYear} My Portfolio. All rights reserved.</p>
+            <p>Made by Avaneesh.</p>
         </div>
     `;
     
