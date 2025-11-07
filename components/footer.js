@@ -1,7 +1,9 @@
 function renderFooter() {
+    const currentYear = new Date().getFullYear();
+    
     const footerHTML = `
         <div class="container">
-            <p>&copy; 2025 Avaneesh. All rights reserved.</p>
+            <p>&copy; ${currentYear} Avaneesh. All rights reserved.</p>
             <p>Built with <span class="heart">❤</span> using HTML, CSS & JavaScript</p>
         </div>
     `;
@@ -11,3 +13,4 @@ function renderFooter() {
 }
 
 renderFooter();
+
