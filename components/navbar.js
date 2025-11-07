@@ -1,5 +1,5 @@
 const navbarData = {
-    logo: 'Avaneesh',
+    logo: 'Avaneesh40585',
     links: [
         { text: 'Home', href: '#hero' },
         { text: 'About', href: '#about' },
