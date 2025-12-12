@@ -2,20 +2,20 @@ const skillsData = {
     title: 'Technical Skills',
     categories: [
         {
-            name: 'Programming Languages',
-            skills: ['Python', 'JavaScript', 'C', 'C++', 'SQL', 'HTML/CSS']
+            name: 'Languages',
+            skills: ['Python', 'C', 'C++', 'JavaScript', 'HTML', 'CSS', 'Markdown']
         },
         {
             name: 'Web Development',
-            skills: ['React.js', 'Node.js', 'Express.js', 'Tailwind CSS', 'Bootstrap', 'PostgreSQL', 'MySQL']
+            skills: ['React', 'Bootstrap', 'Material UI', 'Node.js', 'Express.js', 'PostgreSQL', 'MySQL']
         },
         {
             name: 'Machine Learning',
-            skills: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas', 'NumPy', 'Keras']
+            skills: ['TensorFlow', 'PyTorch', 'Scikit-learn']
         },
         {
-            name: 'Tools & Utilities',
-            skills: ['Git', 'GitHub', 'Postman', 'VS Code', 'EJS']
+            name: 'Tools & Platforms',
+            skills: ['Git', 'GitHub', 'VS Code', 'Sublime Text', 'Postman', 'npm']
         }
     ]
 };
@@ -40,7 +40,7 @@ function renderSkills() {
             </div>
         </div>
     `;
-    
+
     document.getElementById('skills').innerHTML = skillsHTML;
     document.getElementById('skills').classList.add('skills');
 }

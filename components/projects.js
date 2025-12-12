@@ -1,25 +1,25 @@
 const projectsData = {
-    title: 'Featured Repositories',
+    title: 'Central Repositories',
     projects: [
         {
             icon: 'fas fa-brain',
-            title: 'AI/ML Projects',
-            description: 'Exploring machine learning, NLP, and computer vision through hands-on implementations and real-world applications.',
-            tech: ['Python', 'TensorFlow', 'Scikit-learn'],
+            title: 'ML Projects',
+            description: 'A central repository for the collection of ML projects I built while learning and experimenting with various models, techniques & libraries.',
+            tech: ['CV', 'NLP', 'Data Analysis'],
             link: 'https://github.com/Avaneesh40585/AI-Projects'
         },
         {
             icon: 'fas fa-code',
             title: 'Python Projects',
-            description: 'A comprehensive collection of Python projects built for learning, practice, and problem-solving across various domains.',
-            tech: ['Python', 'Algorithms', 'Data Structures'],
+            description: 'A collection of projects built while working through the 100 Days of Code challenge.',
+            tech: ['Scripting', 'GUI', 'Automation'],
             link: 'https://github.com/Avaneesh40585/Python-Projects'
         },
         {
             icon: 'fas fa-globe',
-            title: 'Web Development Projects',
-            description: 'Modern full-stack web applications showcasing responsive design, frontend frameworks, and backend technologies.',
-            tech: ['React', 'Node.js', 'Tailwind CSS'],
+            title: 'WebDev Projects',
+            description: 'I’m learning to build for the web by doing. This portfolio contains my coursework and personal projects, which range from static pages to full-stack apps.',
+            tech: ['REST API', 'CRUD', 'Responsive UI'],
             link: 'https://github.com/Avaneesh40585/WebDev-Projects'
         }
     ]

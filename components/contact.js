@@ -6,13 +6,13 @@ const contactData = {
             icon: 'fas fa-envelope',
             title: 'Email',
             text: 'avaneesh40585@gmail.com',
-            link: 'mailto:avaneesh40585@gmail.com'
+            link: 'https://mail.google.com/mail/?view=cm&fs=1&to=avaneesh40585@gmail.com'
         },
         {
             icon: 'fas fa-phone',
             title: 'Phone',
-            text: '+91-7013945716',
-            link: 'tel:+917013945716'
+            text: 'Currently Unavailable',
+            link: 'tel:+910000000000'
         },
         {
             icon: 'fab fa-linkedin',

@@ -1,56 +1,46 @@
 const navbarData = {
-    logo: 'Avaneesh40585',
-    links: [
-        { text: 'Home', href: '#hero' },
-        { text: 'About', href: '#about' },
-        { text: 'Skills', href: '#skills' },
-        { text: 'Projects', href: '#projects' },
-        { text: 'Contact', href: '#contact' }
-    ]
+  logo: 'Avaneesh40585',
+  links: [
+    { text: 'Home', href: '#hero' },
+    { text: 'About', href: '#about' },
+    { text: 'Skills', href: '#skills' },
+    { text: 'Courses', href: '#courses' },
+    { text: 'Experience', href: '#timeline' },
+    { text: 'Projects', href: '#projects' },
+    { text: 'Contact', href: '#contact' }
+  ]
 };
 
 function renderNavLinks() {
-    return navbarData.links.map(link => `
-        <li><a href="${link.href}">${link.text}</a></li>
-    `).join('');
+  return navbarData.links.map(link => `
+    <li><a href="${link.href}">${link.text}</a></li>
+  `).join('');
 }
 
 function renderNavbar() {
-    const navbarHTML = `
-        <div class="container">
-            <div class="nav-wrapper">
-                <div class="logo">${navbarData.logo}</div>
-                <ul class="nav-menu" id="navMenu">
-                    ${renderNavLinks()}
-                </ul>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+  const navHTML = `
+    <div class="container">
+      <div class="nav-wrapper">
+        <div class="logo">${navbarData.logo}</div>
+        <ul class="nav-menu">
+          ${renderNavLinks()}
+        </ul>
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-    `;
-    
-    document.getElementById('navbar').innerHTML = navbarHTML;
-    document.getElementById('navbar').classList.add('navbar');
-    
-    initNavbarEvents();
-}
-
-function initNavbarEvents() {
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-    });
-    
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-        });
-    });
+      </div>
+    </div>
+  `;
+  
+  const navbar = document.getElementById('navbar');
+  navbar.className = 'navbar';
+  navbar.innerHTML = navHTML;
 }
 
 renderNavbar();
+
