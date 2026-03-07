@@ -1,26 +1,19 @@
 const projectsData = {
-    title: 'Central Repositories',
+    title: 'Selected Works',
     projects: [
         {
-            icon: 'fas fa-brain',
-            title: 'ML Projects',
-            description: 'A central repository for the collection of ML projects I built while learning and experimenting with various models, techniques & libraries.',
-            tech: ['CV', 'NLP', 'Data Analysis'],
-            link: 'https://github.com/Avaneesh40585/AI-Projects'
+            icon: 'ph ph-terminal-window',
+            title: 'T.A.R.S.',
+            description: 'Built a terminal-native AI agent capable of autonomous reasoning and secure tool-use. Features a custom TUI, sandboxed file operations, and support for multi-provider LLMs including OpenAI, Anthropic, and local models.',
+            tech: ['Python', 'LLMs', 'CLI/TUI', 'AI Agents'],
+            link: 'https://github.com/Avaneesh40585/T.A.R.S.'
         },
         {
-            icon: 'fas fa-code',
-            title: 'Python Projects',
-            description: 'A collection of projects built while working through the 100 Days of Code challenge.',
-            tech: ['Scripting', 'GUI', 'Automation'],
-            link: 'https://github.com/Avaneesh40585/Python-Projects'
-        },
-        {
-            icon: 'fas fa-globe',
-            title: 'WebDev Projects',
-            description: 'I’m learning to build for the web by doing. This portfolio contains my coursework and personal projects, which range from static pages to full-stack apps.',
-            tech: ['REST API', 'CRUD', 'Responsive UI'],
-            link: 'https://github.com/Avaneesh40585/WebDev-Projects'
+            icon: 'ph ph-open-ai-logo',
+            title: 'GPT2-From-Scratch',
+            description: 'Built a custom GPT-2 model from scratch using PyTorch. Supports full LLM training pipelines, inference with official OpenAI weights, and task-specific fine-tuning for text classification and instruction',
+            tech: ['PyTorch', 'Transformers', 'LLMs', 'NLP'],
+            link: 'https://github.com/Avaneesh40585/GPT2-From-Scratch'
         }
     ]
 };
@@ -37,7 +30,7 @@ function renderProjectCard(project) {
                 ${project.tech.map(t => `<span>${t}</span>`).join('')}
             </div>
             <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="project-link">
-                View Projects <i class="fas fa-arrow-right"></i>
+                View Project <i class="ph ph-arrow-up-right"></i>
             </a>
         </div>
     `;

@@ -25,9 +25,6 @@ function renderNavbar() {
         <ul class="nav-menu">
           ${renderNavLinks()}
         </ul>
-        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme">
-          <i class="fas fa-moon"></i>
-        </button>
         <div class="hamburger">
           <span></span>
           <span></span>
@@ -43,4 +40,3 @@ function renderNavbar() {
 }
 
 renderNavbar();
-

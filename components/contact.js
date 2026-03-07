@@ -3,25 +3,19 @@ const contactData = {
     subtitle: 'Feel free to reach out for collaborations or just a friendly hello!',
     methods: [
         {
-            icon: 'fas fa-envelope',
+            icon: 'ph ph-envelope-simple',
             title: 'Email',
             text: 'avaneesh40585@gmail.com',
             link: 'https://mail.google.com/mail/?view=cm&fs=1&to=avaneesh40585@gmail.com'
         },
         {
-            icon: 'fas fa-phone',
-            title: 'Phone',
-            text: 'Currently Unavailable',
-            link: 'tel:+910000000000'
-        },
-        {
-            icon: 'fab fa-linkedin',
+            icon: 'ph ph-linkedin-logo',
             title: 'LinkedIn',
             text: 'Connect with me',
             link: 'https://www.linkedin.com/in/avaneesh-muskula/'
         },
         {
-            icon: 'fab fa-github',
+            icon: 'ph ph-github-logo',
             title: 'GitHub',
             text: 'View my work',
             link: 'https://github.com/Avaneesh40585'

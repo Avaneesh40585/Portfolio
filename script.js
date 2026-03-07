@@ -1,14 +1,12 @@
-// Configuration object for easy customization
 const appConfig = {
   navbarOffset: 60,
   scrollDuration: 'smooth',
   observerThreshold: 0.1,
   observerMargin: '0px 0px -100px 0px',
-  animationDuration: '0.6s',
-  elementsToAnimate: '.project-card, .skill-category, .stat'
+  animationDuration: '0.4s', // Made slightly snappier
+  elementsToAnimate: '.project-card, .skill-category'
 };
 
-// Initialize smooth scroll for anchor links
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -25,7 +23,6 @@ function initSmoothScroll() {
   });
 }
 
-// Initialize scroll animations with Intersection Observer
 function initScrollAnimations() {
   const observerOptions = {
     threshold: appConfig.observerThreshold,
@@ -41,54 +38,14 @@ function initScrollAnimations() {
     });
   }, observerOptions);
 
-  // Set initial state and observe elements
   document.querySelectorAll(appConfig.elementsToAnimate).forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `all ${appConfig.animationDuration} ease`;
+    el.style.transform = 'translateY(15px)';
+    el.style.transition = `all ${appConfig.animationDuration} ease-out`;
     observer.observe(el);
   });
 }
 
-// Initialize theme toggle functionality
-function initThemeToggle() {
-  const themeToggle = document.getElementById('theme-toggle');
-  const htmlElement = document.documentElement;
-  
-  // Check for saved theme preference or default to 'light'
-  const currentTheme = localStorage.getItem('theme') || 'light';
-  htmlElement.setAttribute('data-theme', currentTheme);
-  
-  // Update icon based on current theme
-  updateThemeIcon(currentTheme);
-  
-  // Toggle theme on button click
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = htmlElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      htmlElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      updateThemeIcon(newTheme);
-    });
-  }
-}
-
-// Update theme toggle icon
-function updateThemeIcon(theme) {
-  const themeToggle = document.getElementById('theme-toggle');
-  if (themeToggle) {
-    const icon = themeToggle.querySelector('i');
-    if (theme === 'dark') {
-      icon.className = 'fas fa-sun';
-    } else {
-      icon.className = 'fas fa-moon';
-    }
-  }
-}
-
-// Initialize hamburger menu toggle
 function initHamburgerMenu() {
   const hamburger = document.querySelector('.hamburger');
   const navMenu = document.querySelector('.nav-menu');
@@ -99,7 +56,6 @@ function initHamburgerMenu() {
       hamburger.classList.toggle('active');
     });
     
-    // Close menu when clicking on a link
     document.querySelectorAll('.nav-menu a').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('active');
@@ -109,7 +65,6 @@ function initHamburgerMenu() {
   }
 }
 
-// Close mobile menu when clicking outside
 function initMenuCloseOnOutside() {
   document.addEventListener('click', (e) => {
     const navMenu = document.querySelector('.nav-menu');
@@ -125,7 +80,6 @@ function initMenuCloseOnOutside() {
   });
 }
 
-// Initialize timeline animations
 function initTimelineAnimations() {
   const timelineItems = document.querySelectorAll('.timeline-item');
   
@@ -140,14 +94,41 @@ function initTimelineAnimations() {
   timelineItems.forEach(item => observer.observe(item));
 }
 
-// Initialize all features when DOM is ready
+// Initialize hero background interactive parallax effect
+function initHeroParallax() {
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+
+  hero.addEventListener('mousemove', (e) => {
+    // Get dimensions of the hero section
+    const rect = hero.getBoundingClientRect();
+    
+    // Calculate mouse position relative to the element
+    const x = e.clientX - rect.left; 
+    const y = e.clientY - rect.top;  
+
+    // Calculate percentage from center (-1 to 1)
+    // We use this multiplier to determine how intensely the grid tilts
+    const xPercent = (x / rect.width - 0.5) * 2;
+    const yPercent = (y / rect.height - 0.5) * 2;
+
+    // Pass the coordinates dynamically to CSS variables
+    hero.style.setProperty('--mouse-x', xPercent);
+    hero.style.setProperty('--mouse-y', yPercent);
+  });
+
+  // Smoothly snap back to center when the mouse leaves the section
+  hero.addEventListener('mouseleave', () => {
+    hero.style.setProperty('--mouse-x', 0);
+    hero.style.setProperty('--mouse-y', 0);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initScrollAnimations();
-  initThemeToggle();
   initHamburgerMenu();
   initMenuCloseOnOutside();
   initTimelineAnimations();
+  initHeroParallax();
 });
-
-
