@@ -2,11 +2,18 @@ const projectsData = {
     title: 'Selected Works',
     projects: [
         {
-            icon: 'ph ph-terminal-window',
-            title: 'T.A.R.S.',
-            description: 'Built a terminal-native AI agent capable of autonomous reasoning and secure tool-use. Features a custom TUI, sandboxed file operations, and support for multi-provider LLMs including OpenAI, Anthropic, and local models.',
-            tech: ['Python', 'LLMs', 'CLI/TUI', 'AI Agents'],
-            link: 'https://github.com/Avaneesh40585/T.A.R.S.'
+            icon: 'ph ph-bed',
+            title: 'Nestoria',
+            description: 'A boutique-hotel booking platform for independent Indian stays. Features an editorial design system, a 3-step booking wizard, a dedicated host workspace, and Bayesian-smoothed reviews.',
+            tech: ['React', 'Vite', 'Node.js', 'PostgreSQL', 'Supabase'],
+            link: 'https://github.com/Avaneesh40585/Nestoria'
+        },
+        {
+            icon: 'ph ph-sparkle',
+            title: 'GemX',
+            description: 'A complete, 100% local multimodal AI chat app for Apple Silicon Macs. Wraps Gemma 4 via MLX with features like voice input, document attachments, and an agentic web research loop with citations.',
+            tech: ['Electron', 'React', 'Vite', 'MLX', 'LLMs'],
+            link: 'https://github.com/Avaneesh40585/GemX'
         },
         {
             icon: 'ph ph-open-ai-logo',

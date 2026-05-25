@@ -5,7 +5,7 @@ const timelineData = [
     organization: "IIT Indore",
     type: "education",
     status: "present",
-    grade: "CPI: 9.06/10",
+    grade: "CPI: 8.98/10",
     description: "Undergraduate studies in Computer Science.",
   },
   {
