@@ -3,19 +3,19 @@ const skillsData = {
     categories: [
         {
             name: 'Languages',
-            skills: ['Python', 'C', 'C++', 'JavaScript', 'HTML', 'CSS', 'Markdown']
+            skills: ['Python', 'C', 'C++', 'JavaScript', 'TypeScript', 'SQL', 'HTML', 'CSS']
         },
         {
-            name: 'Web Development',
-            skills: ['React', 'Bootstrap', 'Material UI', 'Node.js', 'Express.js', 'PostgreSQL', 'MySQL']
+            name: 'Full-Stack Web',
+            skills: ['React', 'Electron', 'Vite', 'Tailwind CSS', 'Node.js', 'Express', 'REST APIs', 'JWT', 'Google OAuth']
         },
         {
-            name: 'Machine Learning',
-            skills: ['TensorFlow', 'PyTorch', 'Scikit-learn']
+            name: 'AI/ML & LLMs',
+            skills: ['PyTorch', 'TensorFlow', 'Scikit-learn', 'NumPy', 'Pandas', 'Transformers', 'Hugging Face', 'LLM fine-tuning', 'MLX']
         },
         {
-            name: 'Tools & Platforms',
-            skills: ['Git', 'GitHub', 'VS Code', 'Sublime Text', 'Postman', 'npm']
+            name: 'Databases & Tools',
+            skills: ['PostgreSQL', 'MySQL', 'Supabase', 'Git', 'GitHub', 'Jupyter', 'Postman', 'Render']
         }
     ]
 };

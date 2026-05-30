@@ -2,23 +2,23 @@ const projectsData = {
     title: 'Selected Works',
     projects: [
         {
-            icon: 'ph ph-bed',
+            icon: 'ph ph-hotel',
             title: 'Nestoria',
-            description: 'A boutique-hotel booking platform for independent Indian stays. Features an editorial design system, a 3-step booking wizard, a dedicated host workspace, and Bayesian-smoothed reviews.',
-            tech: ['React', 'Vite', 'Node.js', 'PostgreSQL', 'Supabase'],
+            description: 'A full-stack boutique-hotel booking platform for independent Indian stays. Features a 3-step booking wizard, a host dashboard, concurrency-safe reservations, and Bayesian-smoothed reviews.',
+            tech: ['React', 'Node.js', 'PostgreSQL', 'Supabase'],
             link: 'https://github.com/Avaneesh40585/Nestoria'
         },
         {
             icon: 'ph ph-sparkle',
             title: 'GemX',
-            description: 'A complete, 100% local multimodal AI chat app for Apple Silicon Macs. Wraps Gemma 4 via MLX with features like voice input, document attachments, and an agentic web research loop with citations.',
-            tech: ['Electron', 'React', 'Vite', 'MLX', 'LLMs'],
+            description: 'A local multimodal AI chat app for Apple Silicon Macs running Gemma 4 via MLX. Features on-device Whisper voice input, document attachments, and an agentic web-research loop with inline citations.',
+            tech: ['Electron', 'React', 'TypeScript', 'MLX'],
             link: 'https://github.com/Avaneesh40585/GemX'
         },
         {
             icon: 'ph ph-open-ai-logo',
             title: 'GPT2-From-Scratch',
-            description: 'Built a custom GPT-2 model from scratch using PyTorch. Supports full LLM training pipelines, inference with official OpenAI weights, and task-specific fine-tuning for text classification and instruction',
+            description: 'Implemented a GPT-2 decoder-only transformer from scratch in PyTorch. Features a full pre-training pipeline, official OpenAI weight inference, and task-specific fine-tuning with a Chainlit UI.',
             tech: ['PyTorch', 'Transformers', 'LLMs', 'NLP'],
             link: 'https://github.com/Avaneesh40585/GPT2-From-Scratch'
         }
