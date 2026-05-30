@@ -2,7 +2,7 @@ const projectsData = {
     title: 'Selected Works',
     projects: [
         {
-            icon: 'ph ph-hotel',
+            icon: 'ph ph-house-line',
             title: 'Nestoria',
             description: 'A full-stack boutique-hotel booking platform for independent Indian stays. Features a 3-step booking wizard, a host dashboard, concurrency-safe reservations, and Bayesian-smoothed reviews.',
             tech: ['React', 'Node.js', 'PostgreSQL', 'Supabase'],
