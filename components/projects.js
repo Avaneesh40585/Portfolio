@@ -11,7 +11,7 @@ const projectsData = {
         {
             icon: 'ph ph-sparkle',
             title: 'GemX',
-            description: 'A local multimodal AI chat app for Apple Silicon Macs running Gemma 4 via MLX. Features on-device Whisper voice input, document attachments, and an agentic web-research loop with inline citations.',
+            description: 'Local multimodal AI for Apple Silicon: chat with Gemma 4 via MLX, serve it over an OpenAI-compatible API, or run your own mlx-community model. On-device voice, documents, and agentic web research with citations.',
             tech: ['Electron', 'React', 'TypeScript', 'MLX'],
             link: 'https://github.com/Avaneesh40585/GemX'
         },
