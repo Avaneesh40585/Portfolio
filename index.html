@@ -3,34 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Avaneesh40585</title>
+
+    <title>Avaneesh Muskula — CSE '28, IIT Indore</title>
+    <meta
+      name="description"
+      content="Portfolio of Avaneesh Muskula — B.Tech Computer Science at IIT Indore. Full-stack web, machine learning, and open-source tools."
+    />
+    <meta name="theme-color" content="#F4F1EA" />
+
     <link rel="icon" type="image/png" href="assets/images/favicon.png" />
     <link rel="stylesheet" href="styles.css" />
 
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <!-- Apply the saved theme before first paint so the palette never flashes. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('rh-theme');
+          if (t === 't-acid' || t === 't-dark') {
+            document.documentElement.className = t;
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <nav id="navbar"></nav>
+    <div id="marquees"></div>
     <section id="hero"></section>
     <section id="about"></section>
+    <section id="projects"></section>
     <section id="skills"></section>
     <section id="courses"></section>
     <section id="timeline"></section>
-    <section id="projects"></section>
     <section id="contact"></section>
     <footer id="footer"></footer>
 
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
     <script src="components/navbar.js"></script>
+    <script src="components/marquees.js"></script>
     <script src="components/hero.js"></script>
     <script src="components/about.js"></script>
+    <script src="components/projects.js"></script>
     <script src="components/skills.js"></script>
     <script src="components/courses.js"></script>
     <script src="components/timeline.js"></script>
-    <script src="components/projects.js"></script>
     <script src="components/contact.js"></script>
     <script src="components/footer.js"></script>
 

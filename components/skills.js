@@ -1,5 +1,6 @@
 const skillsData = {
-    title: 'Technical Skills',
+    kicker: 'Stack',
+    number: '03',
     categories: [
         {
             name: 'Languages',
@@ -22,7 +23,7 @@ const skillsData = {
 
 function renderSkillCategory(category) {
     return `
-        <div class="skill-category">
+        <div class="skill-category reveal">
             <h3>${category.name}</h3>
             <div class="skill-tags">
                 ${category.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
@@ -33,9 +34,9 @@ function renderSkillCategory(category) {
 
 function renderSkills() {
     const skillsHTML = `
-        <div class="container">
-            <h2 class="section-title">${skillsData.title}</h2>
-            <div class="skills-grid">
+        <div class="wrap">
+            <h2 class="kicker"><i>${skillsData.number}</i> — ${skillsData.kicker} · ${skillsData.categories.length} Categories</h2>
+            <div class="grid">
                 ${skillsData.categories.map(category => renderSkillCategory(category)).join('')}
             </div>
         </div>

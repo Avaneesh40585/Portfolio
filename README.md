@@ -1,6 +1,6 @@
 # Portfolio Website
 
-I built this strictly using Vanilla JS to serve as a reference for developers who want to build a portfolio from scratch. It features a component-based structure, a striking developer-focused Cyberpunk aesthetic, and interactive animations, making it an ideal lightweight template to fork and customize.
+I built this strictly using Vanilla JS to serve as a reference for developers who want to build a portfolio from scratch. It features a component-based structure, a loud brutalist type-poster aesthetic with three flippable themes, and hand-rolled interactions — making it an ideal lightweight template to fork and customize. No build step, no dependencies, no webfonts.
 
 ## Table of Contents
 
@@ -17,12 +17,14 @@ I built this strictly using Vanilla JS to serve as a reference for developers wh
 
 ## Features
 
-- **Terminal Aesthetic:** A stark dark mode featuring pure blacks, high-contrast neon accents, and crisp monospace typography.
-- **Interactive 3D Background:** A dynamic, neon cyber-grid hero background that tilts and shifts with mouse movement using CSS 3D perspective and JavaScript parallax.
-- **Scroll Animations:** Smooth fade-and-slide effects implemented efficiently via the Intersection Observer API.
-- **Component Architecture:** Modular JavaScript structure allowing easy content updates without touching HTML layouts.
-- **Responsive Design:** Native CSS grid layouts (`auto-fit`) adapt seamlessly to mobile, tablet, and desktop viewports.
-- **Microinteractions:** Sharp hover states, glowing CRT dropshadows, and crisp transitions on interactive elements.
+- **Brutalist Type Poster:** Bone paper, ink black, and a single acid yellow accent. 6px rules everywhere, hard offset shadows, zero border radius, and massive stacked headlines set in the system Helvetica stack.
+- **Three-Way Theme Flip:** Bone, acid, and dark palettes swap the entire page through CSS custom properties, using `steps()` transitions so the change feels mechanical rather than smooth. The choice persists in `localStorage` and is applied before first paint, so there is no flash of the wrong palette.
+- **Counter-Scrolling Marquees:** Two bars of engineering quotations scroll in opposite directions and double their speed on hover. They pause automatically when the browser tab is hidden.
+- **Glyph-Scramble Glitch:** The hero name periodically dissolves into noise glyphs and repairs itself, driven by a plain `setInterval` that skips while the tab is hidden.
+- **Full-Inversion Hover:** Specimen cards flip their entire foreground and background on hover; coursework rows shift right onto an acid ground and their badge picks up a hard offset shadow.
+- **Constructivist Hero Art:** A stack of nested rotated squares and rules built entirely from CSS — no images — that recolours with every theme and drifts slowly beside the headline.
+- **Zero Dependencies:** No framework, no bundler, no icon CDN, no Google Fonts. Everything ships from this repository.
+- **Accessible by Default:** `prefers-reduced-motion` disables every animation, the toast is an `aria-live` region, and all three themes keep text contrast intact.
 
 ---
 
@@ -30,27 +32,28 @@ I built this strictly using Vanilla JS to serve as a reference for developers wh
 
 ```text
 portfolio/
-├── index.html                 # Main HTML file
-├── styles.css                 # All styles and global theme variables
-├── script.js                  # Main JavaScript with initialization & parallax
+├── index.html                 # Mount points, meta, and the pre-paint theme script
+├── styles.css                 # All styles, theme tokens, and responsive rules
+├── script.js                  # All behavior, wired on DOMContentLoaded
 ├── LICENSE.txt                # MIT License
 ├── README.md                  # Project documentation
 ├── .gitignore                 # Git ignore file
 ├── assets/
 │   └── images/
 │       ├── favicon.png        # Browser tab icon
-│       ├── profile.jpeg       # Profile photo for hero section
-│       └── about.jpeg         # About section image
+│       ├── profile.jpeg       # Unused by the brutalist layout; kept for forks
+│       └── about.jpeg         # Manifesto section portrait
 └── components/
-    ├── navbar.js              # Navigation bar component
-    ├── hero.js                # Hero section with intro
-    ├── about.js               # About section
-    ├── skills.js              # Skills grid with categories
-    ├── courses.js             # Key courses component
-    ├── timeline.js            # Experience & education timeline
-    ├── projects.js            # Project cards with links
-    ├── contact.js             # Contact methods
-    └── footer.js              # Footer with attribution
+    ├── navbar.js              # Ruled header: logo, links, theme chips, hamburger
+    ├── marquees.js            # The two counter-scrolling bars
+    ├── hero.js                # Stacked headline, stamp button, CSS art
+    ├── about.js               # 01 — Manifesto
+    ├── projects.js            # 02 — Specimens
+    ├── skills.js              # 03 — Stack
+    ├── courses.js             # 04 — Coursework
+    ├── timeline.js            # 05 — Record
+    ├── contact.js             # 06 — Elsewhere (the inverted end block)
+    └── footer.js              # Colophon strip
 ```
 
 ---
@@ -59,42 +62,45 @@ portfolio/
 
 ### 1. **Design System & Aesthetics**
 
-- Relies on CSS custom properties (`:root`) to define a stark monochrome palette alongside electric Cyberpunk Yellow and Neon Cyan accents. 
-- Employs a universal monospace font (`JetBrains Mono`) and sharp, boxy geometry (zero border radius) to replicate a modern-retro developer environment.
-- The hero section uses a combination of infinite CSS background animations and an invisible CRT scanline overlay to simulate a glowing terminal screen.
+- Three palettes are defined as CSS custom properties. `:root` holds the bone default; `html.t-acid` and `html.t-dark` redefine only `--bg`, `--fg`, and `--ac`, so every rule in the stylesheet flips for free.
+- A fourth token, `--on-ac`, is always ink. Because `--ac` is a light value in every theme, any text sitting on an accent-colored ground uses `--on-ac` rather than `--fg` — this is what keeps the acid marquee and the chips readable in the dark theme.
+- Typography is the system Helvetica stack with no webfont request. Display type adds `Arial Black` — a genuine ~900 face preinstalled on macOS and Windows — because Helvetica Neue tops out at Bold and headlines would otherwise render a full weight lighter than intended.
+- Outlined headline type is `-webkit-text-stroke` over `color: transparent`. Grid ruptures are plain `margin-left` offsets on individual headline lines. The hero figure is a stack of rotated, absolutely-positioned blocks — no images anywhere on the page except the portrait.
 
 ### 2. **Component Architecture**
 
-- Splits the page into self-contained JavaScript components (`navbar`, `hero`, `about`, `skills`, `courses`, `timeline`, `projects`, `contact`, `footer`), each responsible for rendering its own HTML into a dedicated `<section>` by `id`.
-- Each component follows a consistent pattern: data object → template string → `innerHTML` injection. This makes it incredibly easy to update content (like skills or projects) by simply editing structured JS arrays instead of raw HTML.
-- The `index.html` remains minimal and declarative, loading all component scripts plus a central `script.js` that wires up global behaviors.
+- Splits the page into self-contained JavaScript components, each responsible for rendering its own HTML into a dedicated `<section>` by `id`.
+- Each component follows a consistent pattern: data object → template string → `innerHTML` injection. This makes it easy to update content by editing structured JS arrays instead of raw HTML.
+- The `index.html` remains minimal and declarative, loading all component scripts plus a central `script.js` that wires up global behaviors. Section order lives in `index.html`; script order does not matter, since each component targets its own element.
 
 ### 3. **Navigation & Interactions**
 
-- Implements a sticky, glassmorphism navbar that stays at the top during scroll. The layout places the logo on the left and a centered link group on larger screens.
-- Provides a hamburger menu that appears at smaller breakpoints, toggling a full-width dropdown navigation. A click-outside handler automatically collapses the menu when the user taps outside the nav area.
-- Includes smooth in-page navigation by intercepting anchor clicks, offsetting for the navbar height, and using `scrollTo` for polished section jumps.
+- A sticky ruled header holds the logo, the section links, and a labelled theme cell. The nav flexes to absorb all slack between them, so the 6px rules run edge to edge with no floating gaps. Each link inverts on hover; a scroll spy inverts the link for whichever section is in view. Nav labels match their section headings exactly.
+- A hamburger menu appears below 1180px, toggling a full-width dropdown. Click-outside and <kbd>Esc</kbd> both collapse it.
+- Smooth in-page navigation intercepts anchor clicks and offsets by the header's measured `offsetHeight`, so the target never lands underneath it.
 
 ### 4. **Scroll & Interactive Animations**
 
-- **Intersection Observer:** Watches key elements (project cards, skill categories, timeline items) and applies fade-in effects only when they enter the viewport, maximizing performance.
-- **Hero Parallax:** JavaScript tracks mouse coordinates relative to the hero section, mapping those values to CSS variables (`--mouse-x`, `--mouse-y`) to apply a subtle 3D `rotateX` and `rotateY` tilt to the background cyber-grid.
-- Adds purely CSS-based micro-interactions (harsh drop shadows, color inversions, and border highlight glows) to keep the UI feeling tactile and responsive.
+- **Intersection Observer:** A single observer watches everything carrying the `.reveal` class, adds `is-in` when it enters the viewport, and then unobserves it. Under reduced motion it simply marks everything visible immediately.
+- **Marquees:** Each track holds two identical halves and animates `translateX(-50%)`, so the loop never shows a seam. Each half is padded with enough repetitions to exceed the widest viewport — otherwise a gap opens on large monitors.
+- **The End Block:** The contact section and colophon render as one inverted panel — `background: var(--fg); color: var(--bg)` — so it flips with the theme and the page closes on a hard slab rather than trailing off.
 
 ### 5. **Content Presentation**
 
-- Uses CSS Grid with `repeat(auto-fit, minmax(...))` constraints to automatically layout project and contact cards beautifully, regardless of how many items you add.
-- Renders the education and experience history from a structured array, generating a vertical timeline with dynamic markers (pulsing colors for current roles, hollow outlines for past).
+- Specimen and stack blocks share one ruled grid whose **interior lines are the `gap`, not borders**: the container is filled with `--fg` and each cell repaints itself with `--bg`, so the 6px rules appear between cells automatically. There is no `nth-child` border arithmetic to get wrong when the number of cards changes — an earlier version used it and broke the moment a fourth project was removed.
+- Column count comes from a `--cols` custom property so every grid keeps a **full last row** and no cell is ever a different width from its siblings. Skills uses the default of 2 for its 4 blocks; projects adds `cols-3` for its 3 cards. See the customization note below before changing how many projects you list.
+- Both course categories collapse into a single continuously numbered index, set in two CSS columns so the numbering still reads top-to-bottom then across. A badge on the right distinguishes them. Blank entries are filtered out, so a stray empty string in the data cannot render an empty numbered row.
+- Education and experience render as ruled rows — year, title, institution, grade — with the current entry marked by an acid edge and a filled grade badge.
+- Every section heading is a real `<h2>` (styled by `.kicker`), giving a clean H1 → H2 → H3 outline for screen readers and search engines.
 
 ---
 
 ## Technologies Used
 
 - **HTML5**: Semantic markup
-- **CSS3**: Modern CSS with Grid, Flexbox, 3D transforms, and Custom Properties
+- **CSS3**: Grid, Flexbox, Custom Properties, `clamp()`, `steps()` timing, `-webkit-text-stroke`
 - **Vanilla JavaScript**: No frameworks, pure ES6+
-- **Phosphor Icons**: A sharp, geometric icon library perfect for technical UIs
-- **Google Fonts**: JetBrains Mono font family
+- **System fonts only**: Helvetica / Arial — no webfont request at all
 
 ---
 
@@ -112,7 +118,7 @@ portfolio/
 1. **Clone the repository**
 
 ```bash
-git clone [https://github.com/Avaneesh40585/Portfolio.git](https://github.com/Avaneesh40585/Portfolio.git)
+git clone https://github.com/Avaneesh40585/Portfolio.git
 cd Portfolio
 ```
 
@@ -120,26 +126,26 @@ cd Portfolio
 
 Edit the component files in the `components/` directory to add your personal details:
 
-- `components/navbar.js` – Logo text and navigation links
-- `components/hero.js` – Name, title, description, buttons, profile image reference
-- `components/about.js` – About text, about image reference
-- `components/skills.js` – Skill categories and tags
-- `components/courses.js` – Key courses in your respective fields
+- `components/navbar.js` – Logo text, navigation links, theme chips
+- `components/marquees.js` – The quotations in each scrolling bar, and their repeat counts
+- `components/hero.js` – Headline lines, tagline, email
+- `components/about.js` – Manifesto text and portrait reference
+- `components/projects.js` – Projects, tech stack, external links
+- `components/skills.js` – Skill categories and chips
+- `components/courses.js` – Course categories and their badges (rendered as one numbered index)
 - `components/timeline.js` – Education and work experience
-- `components/projects.js` – Projects, tech stack, and external links
 - `components/contact.js` – Contact methods (email, LinkedIn, GitHub, etc.)
-- `components/footer.js` – Footer text
+- `components/footer.js` – Colophon text
 
 3. **Add your images**
 
 Place your own images in `assets/images/`:
 - `favicon.png`
-- `profile.jpeg`
 - `about.jpeg`
 
 4. **Open in browser**
 
-Simply open `index.html` in your browser, or use a live server (e.g., VS Code Live Server extension).
+Open `index.html` directly, or serve the folder — `python3 -m http.server 8000` works, as does the VS Code Live Server extension. Serving over HTTP is recommended: the "Copy Email" stamp uses the async Clipboard API, which needs a secure context (it falls back to `execCommand` otherwise).
 
 ---
 
@@ -147,19 +153,44 @@ Simply open `index.html` in your browser, or use a live server (e.g., VS Code Li
 
 ### Changing Colors & Theme
 
-Customize the main color system via CSS custom properties in `styles.css`. 
+All three palettes live at the top of `styles.css`:
 
 ```css
 :root {
-  --primary-color: #FCEE0A;   /* Cyberpunk Yellow */
-  --secondary-color: #00FFFF; /* Neon Cyan */
-  --bg-dark: #000000;         /* Void Black */
-  --bg-panel: #0A0A0A;        /* Slightly elevated panel black */
-  --text-main: #FFFFFF;       /* Pure White for highest contrast */
-  --text-muted: #A1A1AA;      /* Muted gray for secondary text */
-  --border-color: #333333;    /* Sharp grid lines */
+  --bone: #F4F1EA;
+  --ink:  #111111;
+  --acid: #D8FF3E;
+
+  --bg: var(--bone);   /* page background */
+  --fg: var(--ink);    /* text, rules, borders */
+  --ac: var(--acid);   /* the single loud accent */
+
+  --on-ac: #111111;    /* text placed on an --ac ground */
+
+  --rule: 6px;         /* the thick rule used everywhere */
+  --hair: 3px;         /* the thin rule */
+}
+
+html.t-acid { --bg: #D8FF3E; --fg: #111111; --ac: #F4F1EA; }
+html.t-dark { --bg: #111111; --fg: #F4F1EA; --ac: #D8FF3E; }
+```
+
+Swap `--acid` for your own accent and the whole site follows. If you pick a **dark** accent, change `--on-ac` to a light value to keep accent-backed text readable.
+
+To change how many themes exist, update the chips in `components/navbar.js` and the `themes` array in `script.js`.
+
+### Changing Fonts
+
+There is no font request to edit — the stack is defined entirely in `styles.css`:
+
+```css
+:root {
+  --font:         "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Helvetica Neue", "Arial Black", Helvetica, Arial, sans-serif;
 }
 ```
+
+If you'd rather load a webfont, add the `<link>` to `index.html` and put the family first in `--font-display`.
 
 ### Adding New Sections
 
@@ -173,14 +204,15 @@ Customize the main color system via CSS custom properties in `styles.css`.
 
 ```js
   const newSectionData = {
-    title: 'NEW SECTION',
+    number: '07',
+    kicker: 'New Section',
   };
 
   function renderNewSection() {
     const html = `
-      <div class="container">
-        <h2 class="section-title">${newSectionData.title}</h2>
-        </div>
+      <div class="wrap">
+        <h2 class="kicker"><i>${newSectionData.number}</i> — ${newSectionData.kicker}</h2>
+      </div>
     `;
 
     const section = document.getElementById('new-section');
@@ -197,36 +229,42 @@ Customize the main color system via CSS custom properties in `styles.css`.
 <script src="components/new-section.js"></script>
 ```
 
+Add `class="reveal"` to any block you want to fade in on scroll — the existing observer picks it up automatically.
+
 ### Modifying Animations & Scroll Behavior
 
-Global animation behavior is configured in `script.js` via a configuration object:
+Global behavior is configured at the top of `script.js`:
 
 ```js
 const appConfig = {
-  navbarOffset: 60,
-  scrollDuration: 'smooth',
-  observerThreshold: 0.1,                // When to trigger (0–1)
-  observerMargin: '0px 0px -100px 0px',  // Offset from viewport
-  animationDuration: '0.4s',             // Animation speed
-  elementsToAnimate: '.project-card, .skill-category'
+  themeKey: 'rh-theme',                  // localStorage key
+  themes: ['t-bone', 't-acid', 't-dark'],
+  themeColors: { ... },                  // drives the theme-color meta tag
+  toastDuration: 1800,                   // ms the toast stays up
+  glitchInterval: 7000,                  // ms between scrambles
+  glitchFrameMs: 55,                     // ms per scramble frame
+  glitchGlyphs: '#%&@§Ø*!?!',            // the noise pool
+  observerThreshold: 0.15,               // when reveals trigger (0–1)
+  observerMargin: '0px 0px -80px 0px',   // offset from viewport
 };
 ```
 
-### Changing Fonts
+Marquee speed is CSS, not JS — edit `.track` (22s), `.m2 .track` (16s), and the two `:hover` durations in `styles.css`.
 
-To use a different font, update the Google Fonts import in `index.html`:
+### Adding or Removing Projects
 
-```html
-  <link href="[https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap](https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap)" rel="stylesheet">
-```
+The grids only look right when the last row is full, so the column count has to match the number of cards. In `components/projects.js` the wrapper is `<div class="grid cols-3">`:
 
-Replace `JetBrains Mono` with your chosen font and then update `styles.css`:
+| Projects | Wrapper class | Result |
+|---|---|---|
+| 2, 4, 6 | `grid` | two even columns |
+| 3, 6, 9 | `grid cols-3` | three even columns |
 
-```css
-:root {
-  --font-mono: 'Your New Font', monospace;
-}
-```
+With an awkward count (5, 7) either accept a partial last row — which shows as a block of `--fg` where the missing cell would be — or add a `--cols` value that divides it. The responsive overrides in `styles.css` collapse `cols-3` straight to one column below 1080px, because three items only tile evenly at 3-across or 1-across.
+
+### A Note on the Outlined Headline
+
+`.hero-title` carries `letter-spacing: -0.05em`, but `-webkit-text-stroke` draws *outside* the glyph, so on an outlined line that negative tracking makes adjacent letterforms' strokes cross straight through each other. `.hero-title .outline` therefore sets its own positive `letter-spacing`. Keep that override if you change the headline copy.
 
 ---
 
@@ -256,6 +294,8 @@ Each component follows a consistent, data-driven pattern:
 - Clear separation of concerns
 - Easy to maintain and update individual sections without touching others
 - Reusable patterns across all sections
+
+> **Note:** content is interpolated with `innerHTML`, which is safe here because every string is an author-authored constant. Do not feed user-supplied or remote data through these templates without escaping it first.
 
 ---
 
