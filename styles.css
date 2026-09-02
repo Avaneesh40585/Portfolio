@@ -27,7 +27,7 @@
 
   /* --ac is always a light value (acid or bone), so text sitting on
      an --ac ground is always ink. Using this instead of --fg is what
-     keeps the acid marquee and chips readable in the dark theme. */
+     keeps accent-backed chips and badges readable in the dark theme. */
   --on-ac: #111111;
 
   --rule: 6px;
@@ -154,7 +154,6 @@ section {
   padding: 0 8px;
   margin-left: 8px;
   font-size: 0.62em;
-  transform: rotate(-3deg);
   display: inline-block;
 }
 
@@ -182,9 +181,9 @@ section {
   height: 100%;
   padding: 14px 10px;
   border-left: var(--rule) solid var(--fg);
-  font-size: 12px;
+  font-size: clamp(13px, 1.15vw, 16px);
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
@@ -202,18 +201,6 @@ section {
   display: flex;
   align-items: stretch;
   border-left: var(--rule) solid var(--fg);
-}
-
-.themes-label {
-  display: flex;
-  align-items: center;
-  padding: 0 14px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border-right: var(--rule) solid var(--fg);
-  white-space: nowrap;
 }
 
 .themes button {
@@ -283,67 +270,6 @@ section {
 }
 
 /* ------------------------------------------------------------
-   4. MARQUEES
-   ------------------------------------------------------------ */
-.marquee {
-  overflow: hidden;
-  white-space: nowrap;
-  border-bottom: var(--rule) solid var(--fg);
-  background: var(--fg);
-  color: var(--bg);
-  font-family: var(--font-display);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-}
-
-.m1 {
-  font-size: clamp(20px, 3.4vw, 40px);
-  padding: 10px 0;
-}
-
-.m2 {
-  font-size: clamp(14px, 2vw, 22px);
-  padding: 8px 0;
-  background: var(--ac);
-  color: var(--on-ac);
-}
-
-.track {
-  display: inline-block;
-  animation: slide 22s linear infinite;
-  will-change: transform;
-}
-
-.m2 .track {
-  animation-duration: 16s;
-  animation-direction: reverse;
-}
-
-/* Attribution. Opacity rather than an accent colour: m1 inverts to a bone
-   bar in the dark theme, where acid text would fail contrast. */
-.marquee .src {
-  opacity: 0.6;
-}
-
-.marquee:hover .track {
-  animation-duration: 5s;
-}
-
-.m2:hover .track {
-  animation-duration: 4s;
-}
-
-@keyframes slide {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* ------------------------------------------------------------
    5. HERO
    ------------------------------------------------------------ */
 .hero {
@@ -359,64 +285,26 @@ section {
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(56px, 13.5vw, 200px);
+  font-size: clamp(44px, 9vw, 132px);
   font-weight: 900;
-  /* 0.86 crowded the outlined line against its neighbours once the stroke
-     was accounted for; 0.94 still stacks tight without them touching. */
-  line-height: 0.94;
-  letter-spacing: -0.05em;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
   text-transform: uppercase;
-}
-
-/* Deliberate grid rupture — each line kicked further off the margin. */
-.hero-title .shift {
-  display: block;
-  margin-left: clamp(12px, 8vw, 130px);
-}
-
-.hero-title .shift-2 {
-  margin-left: clamp(24px, 14vw, 220px);
-}
-
-.hero-title .outline {
-  color: transparent;
-  -webkit-text-stroke: 3px var(--fg);
-  /* The stroke is drawn outside the glyph, so the headline's -0.05em
-     tracking makes adjacent outlines cross through each other. Solid
-     lines hide that; an outlined one must open the tracking back up. */
-  letter-spacing: 0.035em;
-}
-
-/* Acid fill plus an ink outline, so the stop survives all three themes. */
-.hero-title .stop {
-  color: var(--ac);
-  -webkit-text-stroke: 3px var(--fg);
 }
 
 .hero-title .glitch {
   display: inline-block;
   position: relative;
-  cursor: pointer;
 }
 
-.hero-title .glitch:hover::before,
-.hero-title .glitch:hover::after {
-  content: attr(data-txt);
-  position: absolute;
-  inset: 0;
-}
-
-.hero-title .glitch:hover::before {
-  color: var(--ac);
-  transform: translate(5px, -3px);
-  z-index: -1;
-}
-
-.hero-title .glitch:hover::after {
-  color: var(--fg);
-  opacity: 0.5;
-  transform: translate(-4px, 3px);
-  z-index: -2;
+/* The role line is the first thing a reader should get after the name. */
+.hero-role {
+  max-width: 46ch;
+  margin-top: 18px;
+  font-size: clamp(19px, 2.3vw, 30px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .hero-meta {
@@ -436,8 +324,7 @@ section {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 10px 18px;
-  transform: rotate(-1.4deg);
-  box-shadow: var(--rule) var(--rule) 0 var(--ac);
+  box-shadow: 4px 4px 0 var(--ac);
 }
 
 .tag2 {
@@ -451,7 +338,6 @@ section {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   padding: 9px 14px;
-  transform: rotate(1.8deg);
   cursor: pointer;
 }
 
@@ -501,7 +387,6 @@ section {
 .btn-secondary {
   background: var(--bg);
   color: var(--fg);
-  box-shadow: var(--rule) var(--rule) 0 var(--fg);
 }
 
 .btn:hover {
@@ -519,8 +404,8 @@ section {
   z-index: 0;
   /* 17vw, not more: at ~1440 the headline is at its widest relative to this
      gutter (the h1 clamp tops out near 1481px), and a larger figure crowds it. */
-  width: clamp(190px, 17vw, 270px);
-  height: clamp(190px, 17vw, 270px);
+  width: clamp(170px, 15vw, 240px);
+  height: clamp(170px, 15vw, 240px);
   pointer-events: none;
   animation: artDrift 11s ease-in-out infinite alternate;
 }
@@ -583,8 +468,7 @@ section {
 
 .about-image {
   border: var(--rule) solid var(--fg);
-  box-shadow: 8px 8px 0 var(--ac);
-  transform: rotate(-1deg);
+  box-shadow: 8px 8px 0 var(--fg);
 }
 
 .about-image-photo {
@@ -726,14 +610,13 @@ section {
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  box-shadow: 4px 4px 0 var(--ac);
-  transition: transform 0.1s, box-shadow 0.1s;
+  transition: background 0.12s, color 0.12s;
 }
 
-/* Chips physically press instead of lifting. */
+/* Inverting is quieter than 34 simultaneous acid drop-shadows were. */
 .skill-tag:hover {
-  transform: translate(4px, 4px);
-  box-shadow: 0 0 0 var(--ac);
+  background: var(--fg);
+  color: var(--bg);
 }
 
 /* ------------------------------------------------------------
@@ -755,12 +638,10 @@ section {
   gap: 12px;
   padding: 9px 8px;
   border-bottom: var(--hair) solid var(--fg);
-  font-family: var(--font-display);
-  font-size: clamp(13px, 1.35vw, 17px);
-  font-weight: 900;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
+  font-family: var(--font);
+  font-size: clamp(13px, 1.25vw, 15px);
+  font-weight: 700;
+  line-height: 1.35;
   cursor: pointer;
   break-inside: avoid;
   transition: background 0.14s, color 0.14s, padding-left 0.14s;
@@ -1023,9 +904,9 @@ section {
 /* ------------------------------------------------------------
    15. RESPONSIVE
    ------------------------------------------------------------ */
-/* Breakpoint set empirically: below this the longest nav cell (COURSEWORK)
-   can no longer sit alongside the logo and the theme cell. */
-@media (max-width: 1180px) {
+/* Breakpoint set empirically: below this the two links can no longer sit
+   alongside the logo and the theme chips. */
+@media (max-width: 560px) {
   .nav-menu {
     display: none;
     position: absolute;
@@ -1075,14 +956,6 @@ section {
 @media (max-width: 1080px) {
   .grid.cols-3 {
     --cols: 1;
-  }
-}
-
-/* Below this the logo, theme cell and hamburger stop fitting on one row —
-   the label is the first thing to go, then the chips narrow. */
-@media (max-width: 560px) {
-  .themes-label {
-    display: none;
   }
 }
 
@@ -1157,18 +1030,6 @@ section {
     width: 48px;
   }
 
-  .hero-title .shift,
-  .hero-title .shift-2 {
-    margin-left: 0;
-  }
-
-  /* At 56px a 3px stroke closes up the counters — thin it so the
-     outlined line still reads as outlined. */
-  .hero-title .outline,
-  .hero-title .stop {
-    -webkit-text-stroke-width: 2px;
-  }
-
   .hero-buttons {
     flex-direction: column;
     gap: 18px;
@@ -1191,7 +1052,6 @@ section {
     scroll-behavior: auto;
   }
 
-  .track,
   .hero-art {
     animation: none !important;
   }

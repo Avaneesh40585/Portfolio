@@ -1,5 +1,5 @@
 const skillsData = {
-    kicker: 'Stack',
+    kicker: 'Skills',
     number: '03',
     categories: [
         {

@@ -1,12 +1,7 @@
 const heroData = {
-  // Stacked headline echoing the logo lockup at poster scale. Line one is the
-  // glitch target; the shift classes are the deliberate grid ruptures.
-  lines: [
-    { text: 'Avaneesh', class: 'glitch', glitch: true },
-    { text: '40585', class: 'shift outline' },
-    { text: 'Builds', class: 'shift-2 shift', stop: true }
-  ],
-  subtitle: "IIT Indore · CSE '28",
+  name: 'Avaneesh',
+  role: 'Full-stack engineering & machine learning',
+  credential: "B.Tech Computer Science · IIT Indore · Class of 2028",
   stamp: '↯ Copy Email',
   email: 'avaneesh40585@gmail.com',
   description: 'For me, the reason I code is that I love the process of taking an idea—just a thought—and turning it into something real and interactive on a screen. I think that\'s the best way to learn as well. That\'s why I focus on making things that are easy to use and maybe even a little bit fun. You can see what I\'ve been working on below.',
@@ -15,16 +10,6 @@ const heroData = {
     { text: 'Get In Touch', href: '#contact', class: 'btn-secondary' }
   ]
 };
-
-function renderHeroLines() {
-  return heroData.lines.map(line => {
-    const stop = line.stop ? '<span class="stop">.</span>' : '';
-    if (line.glitch) {
-      return `<span class="${line.class}" id="glitchWord" data-txt="${line.text}">${line.text}</span>${stop}`;
-    }
-    return `<span class="${line.class}">${line.text}${stop}</span>`;
-  }).join('');
-}
 
 function renderButtons() {
   return heroData.buttons.map(btn => `
@@ -35,9 +20,12 @@ function renderButtons() {
 function renderHero() {
   const heroHTML = `
     <div class="wrap">
-      <h1 class="hero-title">${renderHeroLines()}</h1>
+      <h1 class="hero-title">
+        <span class="glitch" id="glitchWord" data-txt="${heroData.name}">${heroData.name}</span>
+      </h1>
+      <p class="hero-role">${heroData.role}</p>
       <div class="hero-meta">
-        <span class="tag">${heroData.subtitle}</span>
+        <span class="tag">${heroData.credential}</span>
         <button class="tag2" id="stampBtn" data-email="${heroData.email}">${heroData.stamp}</button>
       </div>
       <p class="hero-description">${heroData.description}</p>

@@ -1,5 +1,5 @@
 const timelineData = {
-  kicker: 'Record',
+  kicker: 'Education',
   number: '05',
   entries: [
     {
@@ -43,7 +43,7 @@ function renderRecordItem(item) {
 function renderTimeline() {
   const timelineHTML = `
     <div class="wrap">
-      <h2 class="kicker"><i>${timelineData.number}</i> — ${timelineData.kicker} · Experience &amp; Education</h2>
+      <h2 class="kicker"><i>${timelineData.number}</i> — ${timelineData.kicker}</h2>
       <div class="record">
         ${timelineData.entries.map(renderRecordItem).join("")}
       </div>

@@ -1,18 +1,13 @@
 const navbarData = {
   logo: 'Avaneesh',
   logoTag: '/40585',
-  themeLabel: 'Theme',
-  // Labels match each section's kicker exactly, so a visitor always lands
-  // on the heading they clicked.
+  // Only the two links a visitor actually clicks; every other section is
+  // reached by scrolling, and the logo covers "back to top".
   links: [
-    { text: 'Home', href: '#hero' },
-    { text: 'Manifesto', href: '#about' },
-    { text: 'Specimens', href: '#projects' },
-    { text: 'Stack', href: '#skills' },
-    { text: 'Coursework', href: '#courses' },
-    { text: 'Record', href: '#timeline' },
-    { text: 'Elsewhere', href: '#contact' }
+    { text: 'Projects', href: '#projects' },
+    { text: 'Contact', href: '#contact' }
   ],
+
   themes: [
     { class: 'th-b', theme: 't-bone', label: 'Bone theme' },
     { class: 'th-a', theme: 't-acid', label: 'Acid theme' },
@@ -40,7 +35,6 @@ function renderNavbar() {
         ${renderNavLinks()}
       </ul>
       <div class="themes" title="Flip the world">
-        <span class="themes-label">${navbarData.themeLabel}</span>
         ${renderThemeButtons()}
       </div>
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">

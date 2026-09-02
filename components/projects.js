@@ -1,5 +1,5 @@
 const projectsData = {
-    kicker: 'Specimens',
+    kicker: 'Projects',
     number: '02',
     projects: [
         {

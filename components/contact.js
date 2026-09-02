@@ -1,5 +1,5 @@
 const contactData = {
-    kicker: 'Elsewhere',
+    kicker: 'Contact',
     number: '06',
     subtitle: 'Feel free to reach out for collaborations or just a friendly hello!',
     email: 'avaneesh40585@gmail.com',

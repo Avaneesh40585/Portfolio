@@ -19,9 +19,9 @@ I built this strictly using Vanilla JS to serve as a reference for developers wh
 
 - **Brutalist Type Poster:** Bone paper, ink black, and a single acid yellow accent. 6px rules everywhere, hard offset shadows, zero border radius, and massive stacked headlines set in the system Helvetica stack.
 - **Three-Way Theme Flip:** Bone, acid, and dark palettes swap the entire page through CSS custom properties, using `steps()` transitions so the change feels mechanical rather than smooth. The choice persists in `localStorage` and is applied before first paint, so there is no flash of the wrong palette.
-- **Counter-Scrolling Marquees:** Two bars of engineering quotations scroll in opposite directions and double their speed on hover. They pause automatically when the browser tab is hidden.
 - **Glyph-Scramble Glitch:** The hero name periodically dissolves into noise glyphs and repairs itself, driven by a plain `setInterval` that skips while the tab is hidden.
-- **Full-Inversion Hover:** Specimen cards flip their entire foreground and background on hover; coursework rows shift right onto an acid ground and their badge picks up a hard offset shadow.
+- **Restrained by Design:** The brutalist language is structural — rules, inversion, hard offsets — rather than decorative. Body copy stays sentence case at readable weights, and the accent colour is used sparingly enough to still register as an accent.
+- **Full-Inversion Hover:** Project cards flip their entire foreground and background on hover; skill chips and coursework rows invert or shift in the same language.
 - **Constructivist Hero Art:** A stack of nested rotated squares and rules built entirely from CSS — no images — that recolours with every theme and drifts slowly beside the headline.
 - **Zero Dependencies:** No framework, no bundler, no icon CDN, no Google Fonts. Everything ships from this repository.
 - **Accessible by Default:** `prefers-reduced-motion` disables every animation, the toast is an `aria-live` region, and all three themes keep text contrast intact.
@@ -42,17 +42,16 @@ portfolio/
 │   └── images/
 │       ├── favicon.png        # Browser tab icon
 │       ├── profile.jpeg       # Unused by the brutalist layout; kept for forks
-│       └── about.jpeg         # Manifesto section portrait
+│       └── about.jpeg         # About section portrait
 └── components/
-    ├── navbar.js              # Ruled header: logo, links, theme chips, hamburger
-    ├── marquees.js            # The two counter-scrolling bars
-    ├── hero.js                # Stacked headline, stamp button, CSS art
-    ├── about.js               # 01 — Manifesto
-    ├── projects.js            # 02 — Specimens
-    ├── skills.js              # 03 — Stack
+    ├── navbar.js              # Ruled header: logo, 2 links, theme chips, hamburger
+    ├── hero.js                # Name, role line, stamp button, CSS art
+    ├── about.js               # 01 — About
+    ├── projects.js            # 02 — Projects
+    ├── skills.js              # 03 — Skills
     ├── courses.js             # 04 — Coursework
-    ├── timeline.js            # 05 — Record
-    ├── contact.js             # 06 — Elsewhere (the inverted end block)
+    ├── timeline.js            # 05 — Education
+    ├── contact.js             # 06 — Contact (the inverted end block)
     └── footer.js              # Colophon strip
 ```
 
@@ -63,9 +62,10 @@ portfolio/
 ### 1. **Design System & Aesthetics**
 
 - Three palettes are defined as CSS custom properties. `:root` holds the bone default; `html.t-acid` and `html.t-dark` redefine only `--bg`, `--fg`, and `--ac`, so every rule in the stylesheet flips for free.
-- A fourth token, `--on-ac`, is always ink. Because `--ac` is a light value in every theme, any text sitting on an accent-colored ground uses `--on-ac` rather than `--fg` — this is what keeps the acid marquee and the chips readable in the dark theme.
+- A fourth token, `--on-ac`, is always ink. Because `--ac` is a light value in every theme, any text sitting on an accent-colored ground uses `--on-ac` rather than `--fg` — this is what keeps the accent-backed chips and badges readable in the dark theme.
 - Typography is the system Helvetica stack with no webfont request. Display type adds `Arial Black` — a genuine ~900 face preinstalled on macOS and Windows — because Helvetica Neue tops out at Bold and headlines would otherwise render a full weight lighter than intended.
-- Outlined headline type is `-webkit-text-stroke` over `color: transparent`. Grid ruptures are plain `margin-left` offsets on individual headline lines. The hero figure is a stack of rotated, absolutely-positioned blocks — no images anywhere on the page except the portrait.
+- The hero leads with the name at display scale, then a role line, then credentials — so what you do is legible in the first second rather than buried. The figure beside it is a stack of rotated, absolutely-positioned blocks — no images anywhere on the page except the portrait.
+- Acid is rationed. It appears on the section numerals, the logo chip, the primary button, the current-education marker and link hovers — and nowhere else. An earlier version put an acid drop-shadow on all 34 skill chips at once, which read as noise rather than accent.
 
 ### 2. **Component Architecture**
 
@@ -75,19 +75,19 @@ portfolio/
 
 ### 3. **Navigation & Interactions**
 
-- A sticky ruled header holds the logo, the section links, and a labelled theme cell. The nav flexes to absorb all slack between them, so the 6px rules run edge to edge with no floating gaps. Each link inverts on hover; a scroll spy inverts the link for whichever section is in view. Nav labels match their section headings exactly.
-- A hamburger menu appears below 1180px, toggling a full-width dropdown. Click-outside and <kbd>Esc</kbd> both collapse it.
+- A sticky ruled header holds the logo, two nav links and the theme chips. The nav flexes to absorb all slack between them, so the 6px rules run edge to edge with no floating gaps. Each link inverts on hover; a scroll spy inverts whichever is in view.
+- The header carries only **Projects** and **Contact** — the two destinations a visitor actually clicks. Every other section is found by scrolling, and the logo doubles as "back to top", so a Home link would be redundant. Fewer cells also means each one can be set larger without crowding.
+- A hamburger menu appears below 560px, toggling a full-width dropdown. Click-outside and <kbd>Esc</kbd> both collapse it. The breakpoint is set empirically to the width at which the logo, links and chips stop fitting on one row — trim or add links and it needs re-measuring.
 - Smooth in-page navigation intercepts anchor clicks and offsets by the header's measured `offsetHeight`, so the target never lands underneath it.
 
 ### 4. **Scroll & Interactive Animations**
 
 - **Intersection Observer:** A single observer watches everything carrying the `.reveal` class, adds `is-in` when it enters the viewport, and then unobserves it. Under reduced motion it simply marks everything visible immediately.
-- **Marquees:** Each track holds two identical halves and animates `translateX(-50%)`, so the loop never shows a seam. Each half is padded with enough repetitions to exceed the widest viewport — otherwise a gap opens on large monitors.
 - **The End Block:** The contact section and colophon render as one inverted panel — `background: var(--fg); color: var(--bg)` — so it flips with the theme and the page closes on a hard slab rather than trailing off.
 
 ### 5. **Content Presentation**
 
-- Specimen and stack blocks share one ruled grid whose **interior lines are the `gap`, not borders**: the container is filled with `--fg` and each cell repaints itself with `--bg`, so the 6px rules appear between cells automatically. There is no `nth-child` border arithmetic to get wrong when the number of cards changes — an earlier version used it and broke the moment a fourth project was removed.
+- The project and skill blocks share one ruled grid whose **interior lines are the `gap`, not borders**: the container is filled with `--fg` and each cell repaints itself with `--bg`, so the 6px rules appear between cells automatically. There is no `nth-child` border arithmetic to get wrong when the number of cards changes — an earlier version used it and broke the moment a fourth project was removed.
 - Column count comes from a `--cols` custom property so every grid keeps a **full last row** and no cell is ever a different width from its siblings. Skills uses the default of 2 for its 4 blocks; projects adds `cols-3` for its 3 cards. See the customization note below before changing how many projects you list.
 - Both course categories collapse into a single continuously numbered index, set in two CSS columns so the numbering still reads top-to-bottom then across. A badge on the right distinguishes them. Blank entries are filtered out, so a stray empty string in the data cannot render an empty numbered row.
 - Education and experience render as ruled rows — year, title, institution, grade — with the current entry marked by an acid edge and a filled grade badge.
@@ -126,10 +126,9 @@ cd Portfolio
 
 Edit the component files in the `components/` directory to add your personal details:
 
-- `components/navbar.js` – Logo text, navigation links, theme chips
-- `components/marquees.js` – The quotations in each scrolling bar, and their repeat counts
-- `components/hero.js` – Headline lines, tagline, email
-- `components/about.js` – Manifesto text and portrait reference
+- `components/navbar.js` – Logo text, the two nav links, theme chips
+- `components/hero.js` – Name, role line, credentials, email
+- `components/about.js` – About text and portrait reference
 - `components/projects.js` – Projects, tech stack, external links
 - `components/skills.js` – Skill categories and chips
 - `components/courses.js` – Course categories and their badges (rendered as one numbered index)
@@ -249,8 +248,6 @@ const appConfig = {
 };
 ```
 
-Marquee speed is CSS, not JS — edit `.track` (22s), `.m2 .track` (16s), and the two `:hover` durations in `styles.css`.
-
 ### Adding or Removing Projects
 
 The grids only look right when the last row is full, so the column count has to match the number of cards. In `components/projects.js` the wrapper is `<div class="grid cols-3">`:
@@ -261,10 +258,6 @@ The grids only look right when the last row is full, so the column count has to 
 | 3, 6, 9 | `grid cols-3` | three even columns |
 
 With an awkward count (5, 7) either accept a partial last row — which shows as a block of `--fg` where the missing cell would be — or add a `--cols` value that divides it. The responsive overrides in `styles.css` collapse `cols-3` straight to one column below 1080px, because three items only tile evenly at 3-across or 1-across.
-
-### A Note on the Outlined Headline
-
-`.hero-title` carries `letter-spacing: -0.05em`, but `-webkit-text-stroke` draws *outside* the glyph, so on an outlined line that negative tracking makes adjacent letterforms' strokes cross straight through each other. `.hero-title .outline` therefore sets its own positive `letter-spacing`. Keep that override if you change the headline copy.
 
 ---
 

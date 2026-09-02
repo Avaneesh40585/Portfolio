@@ -127,7 +127,7 @@
     if (!stamp) return;
 
     stamp.addEventListener('click', () => {
-      stamp.style.transform = 'rotate(1.8deg) translate(6px, 6px)';
+      stamp.style.transform = 'translate(4px, 4px)';
       setTimeout(() => { stamp.style.transform = ''; }, 700);
 
       copyText(stamp.dataset.email)
@@ -167,15 +167,6 @@
         e.preventDefault();
         cycle();
       }
-    });
-  }
-
-  /* ---------- marquees pause when the tab is hidden ---------- */
-  function initMarqueePause() {
-    document.addEventListener('visibilitychange', () => {
-      document.querySelectorAll('.track').forEach(track => {
-        track.style.animationPlayState = document.hidden ? 'paused' : 'running';
-      });
     });
   }
 
@@ -281,7 +272,6 @@
     initStamp();
     initIndexRows();
     initColophon();
-    initMarqueePause();
     initReveal();
     initSmoothScroll();
     initHamburgerMenu();

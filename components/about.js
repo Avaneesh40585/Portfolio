@@ -1,5 +1,5 @@
 const aboutData = {
-  kicker: 'Manifesto',
+  kicker: 'About',
   number: '01',
   image: 'assets/images/about.jpeg',
   intro: "I am currently pursuing a B.Tech in Computer Science at IIT Indore. In my downtime, I enjoy gaming, watching anime, and reading manga. Occasionally, I like to take practical ideas and code them into accessible, user-friendly tools specifically alternatives to software that is usually gated behind ads or paywalls. My goal is to open-source these projects, with the hope that the community can use them and perhaps nurture them into something even better over time."
