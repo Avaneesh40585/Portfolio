@@ -4,7 +4,7 @@ function renderFooter() {
     const footerHTML = `
         <div class="wrap">
             <div class="colophon" id="colophon" role="button" tabindex="0" title="Click to re-align">
-                <span class="al" id="alText">Set in Helvetica · Avaneesh Muskula · ${currentYear} · Built by hand, no framework</span>
+                <span class="al" id="alText">Avaneesh40585 · ${currentYear} </span>
             </div>
         </div>
     `;

@@ -14,8 +14,8 @@
     glitchInterval: 7000,
     glitchFrameMs: 55,
     glitchGlyphs: '#%&@§Ø*!?!',
-    observerThreshold: 0.15,
-    observerMargin: '0px 0px -80px 0px'
+    observerThreshold: 0.1,
+    observerMargin: '0px 0px -40px 0px'
   };
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -246,24 +246,53 @@
   /* ---------- invert the nav link for the section in view ---------- */
   function initScrollSpy() {
     const links = Array.from(document.querySelectorAll('.nav-menu a[href^="#"]'));
-    const sections = links
-      .map(link => document.querySelector(link.getAttribute('href')))
-      .filter(Boolean);
-    if (!sections.length) return;
+    const linkMap = new Map();
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        links.forEach(link => {
-          link.classList.toggle(
-            'is-active',
-            link.getAttribute('href') === '#' + entry.target.id
-          );
-        });
+    links.forEach(link => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) linkMap.set(target, link);
+    });
+
+    if (!linkMap.size) return;
+
+    function updateActive() {
+      const header = document.getElementById('navbar');
+      const headerHeight = header ? header.offsetHeight : 0;
+      const scrollY = window.scrollY;
+
+      // When near the top of the page (Hero section), no nav link should be active
+      if (scrollY < 120) {
+        links.forEach(l => l.classList.remove('is-active'));
+        return;
+      }
+
+      // Check if user has scrolled to the bottom of the page
+      const atBottom = window.innerHeight + scrollY >= document.documentElement.scrollHeight - 60;
+
+      let activeLink = null;
+
+      if (atBottom) {
+        activeLink = links[links.length - 1];
+      } else {
+        const focalY = headerHeight + (window.innerHeight * 0.35);
+
+        for (const [section, link] of linkMap.entries()) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= focalY && rect.bottom > focalY) {
+            activeLink = link;
+            break;
+          }
+        }
+      }
+
+      links.forEach(link => {
+        link.classList.toggle('is-active', link === activeLink);
       });
-    }, { rootMargin: '-45% 0px -50% 0px' });
+    }
 
-    sections.forEach(section => observer.observe(section));
+    window.addEventListener('scroll', updateActive, { passive: true });
+    window.addEventListener('resize', updateActive, { passive: true });
+    updateActive();
   }
 
   document.addEventListener('DOMContentLoaded', () => {
